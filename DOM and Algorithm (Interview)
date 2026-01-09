@@ -1,0 +1,44 @@
+Article :- [GitHub - acdlite/react-fiber-architecture: A description of React's new core algorithm, React Fiber](https://github.com/acdlite/react-fiber-architecture)
+
+- Summary
+    
+    Reconciliation is the algorithm behind what is popularly understood as the "virtual DOM." A high-level description goes something like this: when you render a React application, a tree of nodes that describes the app is generated and saved in memory. This tree is then flushed to the rendering environment — for example, in the case of a browser application, it's translated to a set of DOM operations. When the app is updated (usually via `setState`), a new tree is generated. The new tree is diffed with the previous tree to compute which operations are needed to update the rendered app.
+    
+    • Diffing of lists is performed using keys. Keys should be "stable, predictable, and unique.”
+    
+    Reconciliation
+    │
+    ├── Initial Render
+    │   ├── Create Virtual DOM Tree
+    │   └── Flush to Real DOM
+    │
+    ├── Update Trigger
+    │   ├── State/Props Change
+    │   └── New Virtual DOM Tree
+    │
+    ├── Diffing Algorithm
+    │   ├── Compare Old vs New Tree
+    │   ├── Identify Differences
+    │   └── Compute Minimal DOM Operations
+    │
+    ├── Commit Phase
+    │   ├── Apply DOM Updates
+    │   └── UI Updated
+    │
+    └── Optimizations
+    ├── Batch Updates
+    ├── Prioritize User Interactions
+    └── Delay Non-Critical Work
+    
+
+key points are:
+
+- In a UI, it's not necessary for every update to be applied immediately; in fact, doing so can be wasteful, causing frames to drop and degrading the user experience.
+- Different types of updates have different priorities — an animation update needs to complete more quickly than, say, an update from a data store.
+- A push-based approach requires the app (you, the programmer) to decide how to schedule work. A pull-based approach allows the framework (React) to be smart and make those decisions for you.
+
+- Fiber
+    - pause work and come back to it later.
+    - assign priority to different types of work.
+    - reuse previously completed work.
+    - abort work if it's no longer needed.
