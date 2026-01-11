@@ -1,0 +1,49 @@
+# React useRef Hook 
+
+useRef is one of the most important React hooks. It helps you access DOM elements, store mutable values, and persist data across renders without causing re-renders.
+
+---
+
+1. What is useRef ?
+useRef allows you to create a mutable reference that persists for the full lifetime of the component.
+
+Key points:
+          It stores a value in .current
+          Updating .current does NOT cause re-render
+          Commonly used for DOM access and storing values silently
+
+const ref = useRef(initialValue);
+
+
+Why use useRef?
+2. Problems with useState:
+            Triggers re-render on every update
+            Not suitable for DOM access or timers
+
+useRef solves this by:
+
+Avoiding unnecessary re-renders
+Allowing direct DOM manipulation
+Persisting values between renders
+
+................................................
+ Example 2: Copy Text to Clipboard
+import { useRef } from "react";
+
+function App() {
+  const inputRef = useRef();
+
+  const copyText = () => {
+    navigator.clipboard.writeText(inputRef.current.value);
+    alert("Text Copied!");
+  };
+
+  return (
+    <>
+      <input ref={inputRef} type="text" placeholder="Type something" />
+      <button onClick={copyText}>Copy</button>
+    </>
+  );
+}
+
+export default App;
