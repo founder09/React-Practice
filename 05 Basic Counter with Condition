@@ -9,7 +9,7 @@ function App(){
 
   const addValue = () =>{
     if(counter >= MAX) return
-    setCounter(prev =>prev + 1)
+    setCounter(prev =>prev + 1) 
   }
 
   const subValue = () =>{
